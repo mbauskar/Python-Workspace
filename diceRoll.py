@@ -10,7 +10,7 @@ for n in range(100):
 
 	rollCount[dice1 + dice2] += 1 			# incrementing the rollCount to its resp. roll
 
-print "\nDice rolling count"
+print "\nDice rolling count : "
 
 for k,v in sorted(rollCount.items()):
 	print k, " is rolled", v, "times"
