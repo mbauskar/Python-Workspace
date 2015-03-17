@@ -1,5 +1,6 @@
 # Program to perform operations on string
 
+"""
 def addCommasToNumericString(numStr):
 	# Program to add the commas to numeric string e.g. numStr = 100000
 	# Then the function must return 1,00,000
@@ -19,7 +20,28 @@ def addCommasToNumericString(numStr):
 		numList.append(num)
 		count += 1
 
-	print listToString(numList[::-1])
+	return listToString(numList[::-1])
+"""
+
+# OR
+
+def addCommasToNumericString(numStr):
+	inputList =  list(numStr.split(".")[0])
+
+	if len(inputList) > 3:
+		sufix = [","] +	inputList[-3:]				# adding comma  before last three digits, 
+													# inputList[-3:] returns last three digits
+
+		inputList = inputList[:-3]					# updating inputList so we can add comma after each 2 digit
+
+		for i in range(len(inputList))[::-2][1:]:	
+			inputList.insert(i+1, ",")
+
+		inputList += sufix							# adding sufix i.e last 3 digits to inputList
+
+		return "".join(inputList)+"."+numStr.split(".")[1]
+	else:
+		return numStr
 
 def listToString(inputList):
 	opStr = ""
@@ -27,4 +49,4 @@ def listToString(inputList):
 		opStr += ch						# Appending the character to string
 	return opStr
 
-print addCommasToNumericString("123456789")
+print addCommasToNumericString("89.00")
