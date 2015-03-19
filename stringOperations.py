@@ -75,10 +75,31 @@ def addCommasToNumericString(numStr, format):
 	else:
 		return numStr
 
+def replaceStr(usrDict, usrStr):
+	# function to find the pattern and replace it with value from dictionary
+	# string : 0123[a1]45678 dict : {'a1':'value'} then replace 'a1' from string and replace it with 
+	#											   'value' using dictionary
+	
+	tempStr = ""
+	
+	while usrStr.find("[") != -1:				# loop to traverse through the string untill we find [ char in string
+		
+		i = usrStr.find("[") + 1 				# get the index of '[' character
+		j = usrStr.find("]")					# get index of ']' character
+
+		#operations
+		key = usrStr[i:j]						# get the string inbetween '[' & ']'
+		tempStr += usrStr[:i-1] + usrDict[key]
+
+		usrStr = usrStr[j+1:]
+
+	return tempStr + usrStr
+
 def listToString(inputList):
 	opStr = ""
 	for ch in inputList:
 		opStr += ch						# Appending the character to string
 	return opStr
 
-print addCommasToNumericString("123456789.00","USD")
+#print addCommasToNumericString("123456789.00","USD")
+print replaceStr({'a1':' value for a1 ','a2':' value for a2 ','a3':' value for a3 '},"12[a1]34[a2]56[a3]78")
