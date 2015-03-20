@@ -11,6 +11,6 @@ def findNReplace(userDict,userString):
 
 	return userString
 
-userDict = {'fname':'Makarand','lname':'Bauskar'}
+userDict = {'fname':'FirstName','lname':'LastName'}
 
 print findNReplace(userDict, "My Name is [fname] [lname]")
