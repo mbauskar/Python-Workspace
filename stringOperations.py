@@ -80,6 +80,8 @@ def replaceStr(usrDict, usrStr):
 	# string : 0123[a1]45678 dict : {'a1':'value'} then replace 'a1' from string and replace it with 
 	#											   'value' using dictionary
 	
+	print usrStr
+	usrStr1 = usrStr
 	tempStr = ""
 	
 	while usrStr.find("[") != -1:				# loop to traverse through the string untill we find [ char in string
@@ -93,6 +95,13 @@ def replaceStr(usrDict, usrStr):
 
 		usrStr = usrStr[j+1:]
 
+	#Or using regular expression
+	import re
+	pattern = re.compile(r"(?<=\[)(.*?)(?=\])")
+
+	for key in re.findall(r"(?<=\[)(.*?)(?=\])",usrStr1):
+		print pattern.sub(usrDict[key], usrStr1)
+
 	return tempStr + usrStr
 
 def listToString(inputList):
@@ -103,3 +112,6 @@ def listToString(inputList):
 
 #print addCommasToNumericString("123456789.00","USD")
 print replaceStr({'a1':' value for a1 ','a2':' value for a2 ','a3':' value for a3 '},"12[a1]34[a2]56[a3]78")
+
+
+ # Finished Goods - VSEA
