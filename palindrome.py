@@ -1,6 +1,6 @@
 # program to check if given number or string is palindrome or not
 
-def palindromeNumber(number):
+def palindromeNumber(number):					# function to check if number is palindrome or not
 	no = number
 	revNumber = 0
 
@@ -14,7 +14,7 @@ def palindromeNumber(number):
 	else:
 		return False
 
-def palindromeString(usrStr):
+def palindromeString(usrStr):					# function to check if string is palindrome or not
 	revStr = usrStr[::-1]
 	if revStr == usrStr:
 		return True
