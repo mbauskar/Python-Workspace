@@ -9,7 +9,7 @@ def calAverage():
 
 	for x in range(11):
 		total += sq(x)
-	
+
 	return total / 10.0
 
 print calAverage(), msg
