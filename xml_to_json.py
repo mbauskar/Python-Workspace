@@ -46,14 +46,6 @@ def xml_to_json(xml, as_dict=True):
     except Exception, e:
         frappe.throw("Invalid XML Request")
 
-service_response_mapper = {
-    "create_service": "CreateServiceResponse",
-    "create_customer": "CreateCustomerResponse",
-    "disconnect_service": "DisconnedtServiceResponse",
-    "delete_customer": "DeleteCustomerResponse",
-    "control_action": "ControlActionResponse"
-}
-
 def json_to_xml(_json, as_str=True):
     path = frappe.request.path[1:].split("/",2)
     cmd = ""
