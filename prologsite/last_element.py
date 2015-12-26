@@ -36,12 +36,12 @@ def remove_duplicates(element_list):
 	# return list(set(element_list))
 	result = []
 	if element_list and len(element_list) >= 2:
-		lastest = element_list[0]
-		result.append(lastest)
+		latest = element_list[0]
+		result.append(latest)
 		for element in element_list[1:]:
-			if element != lastest:
-				lastest = element
-				result.append(lastest)
+			if element != latest:
+				latest = element
+				result.append(latest)
 	else:
 		return list(set(element_list))
 	return result
@@ -49,13 +49,13 @@ def remove_duplicates(element_list):
 def pack_duplicates(element_list):
 	result = []
 	if element_list and len(element_list) > 2:
-		lastest = element_list[0]
+		latest = element_list[0]
 		pack = []
 		for element in element_list[1:]:
-			pack.append(lastest)
-			if element != lastest:
+			pack.append(latest)
+			if element != latest:
 				result.append(pack)
-				lastest = element
+				latest = element
 				pack = []
 			else:
 				pack.append(element)
@@ -68,13 +68,13 @@ def pack_duplicates(element_list):
 def pack_duplicates(element_list):
 	result = []
 	if element_list and len(element_list) > 2:
-		lastest = element_list[0]
-		pack = [lastest]
+		latest = element_list[0]
+		pack = [latest]
 		for element in element_list[1:]:
-			if element != lastest:
-				lastest = element
+			if element != latest:
+				latest = element
 				result.append(pack)
-				pack = [lastest]
+				pack = [latest]
 			else:
 				pack.append(element)
 		result.append(pack)
@@ -86,24 +86,70 @@ def pack_duplicates(element_list):
 
 def length_encoding(element_list):
 	result = []
-	if element_list and len(element_list) > 2:
-		lastest = element_list[0]
+	if element_list and len(element_list) >= 2:
+		latest = element_list[0]
 		count = 1
 		pack = []
 		for element in element_list[1:]:
-			if element != lastest:
-				result.append([lastest, count])
-				lastest = element
+			if element != latest:
+				result.append([count, latest])
+				latest = element
 				count = 1
 			else:
 				count += 1
-		result.append([lastest, count])
+		result.append([count, latest])
+	elif element_list:
+		return [[element_list[0], 1]]
 	return result
 
+def modified_length_encoding(element_list):
+	# result = []
+	# if element_list and len(element_list) >= 2:
+	# 	latest = element_list[0]
+	# 	count = 1
+	# 	pack = []
+	# 	for element in element_list[1:]:
+	# 		if element != latest:
+	# 			result.append([count, latest]) if count > 1 else result.append(latest)
+	# 			latest = element
+	# 			count = 1
+	# 		else:
+	# 			count += 1
+	# 	result.append([count, latest])
+	# elif element_list:
+	# 	return [[element_list[0], 1]]
+	# return result
+
+	# OR
+
+	result_set = length_encoding(element_list)
+	return [result if result[0] >= 2 else result[1]  for result in result_set]
+
+def decode_lenth_encoding(encoded_list):
+	from itertools import repeat
+	result = []
+	# [result.append(element) if not isinstance(element, list) else result.extend(list(repeat(element[1], element[0]))) for element in encoded_list]
+	
+	# OR
+
+	for element in encoded_list:
+		if not isinstance(element, list):
+			result.append(element)
+		else:
+			result.extend(list(repeat(element[1], element[0])))
+	return result
+
+def duplicate_the_list(element_list, count):
+	from itertools import repeat
+	result = []
+	[result.extend(list(repeat(element, count))) for element in element_list]
+	return result
 
 element_list = ['a','b','c','d']
-duplicates = [1,1,1,1,1,1,2,2,2,1,1,3,3,4,4,4,4,4,4,4]
-list_tobe_flatten = [1,[2,[3,4],5],6]
+# element_list = ['a', 'a', 'a', 'b', 'b', 'b', 'c', 'c', 'c', 'd', 'd', 'd']
+list_tobe_flatten = ['a',['b',['c','d'],'e'],'f']
+duplicates = ['a','a','a','a','a','a','b','b','b','a','c','c','d','d','d','d','d','d','d']
+encoded_list = [[6, 'a'], [3, 'b'], 'a', [2, 'c'], [7, 'd']]
 
 print mylast(element_list)
 print last_but_one(element_list)
@@ -115,3 +161,6 @@ print flatten_list(list_tobe_flatten)
 print remove_duplicates(duplicates)
 print pack_duplicates(duplicates)
 print length_encoding(duplicates)
+print modified_length_encoding(duplicates)
+print decode_lenth_encoding(encoded_list)
+print duplicate_the_list(element_list, 3)
