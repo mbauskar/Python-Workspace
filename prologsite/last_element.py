@@ -35,16 +35,71 @@ def flatten_list(list_tobe_flatten):
 def remove_duplicates(element_list):
 	# return list(set(element_list))
 	result = []
-	if element_list and len(element_list) > 2:
+	if element_list and len(element_list) >= 2:
 		lastest = element_list[0]
 		result.append(lastest)
 		for element in element_list[1:]:
 			if element != lastest:
 				lastest = element
 				result.append(lastest)
-	elif len(element_list) == 2:
+	else:
 		return list(set(element_list))
 	return result
+
+def pack_duplicates(element_list):
+	result = []
+	if element_list and len(element_list) > 2:
+		lastest = element_list[0]
+		pack = []
+		for element in element_list[1:]:
+			pack.append(lastest)
+			if element != lastest:
+				result.append(pack)
+				lastest = element
+				pack = []
+			else:
+				pack.append(element)
+	elif len(element_list) == 2:
+		result = [element_list] if element_list[0] == element_list[1] else [[element_list[0]],[element_list[1]]]
+	else:
+		return element_list
+	return result
+
+def pack_duplicates(element_list):
+	result = []
+	if element_list and len(element_list) > 2:
+		lastest = element_list[0]
+		pack = [lastest]
+		for element in element_list[1:]:
+			if element != lastest:
+				lastest = element
+				result.append(pack)
+				pack = [lastest]
+			else:
+				pack.append(element)
+		result.append(pack)
+	elif len(element_list) == 2:
+		result = [element_list] if element_list[0] == element_list[1] else [[element_list[0]],[element_list[1]]]
+	else:
+		return element_list
+	return result
+
+def length_encoding(element_list):
+	result = []
+	if element_list and len(element_list) > 2:
+		lastest = element_list[0]
+		count = 1
+		pack = []
+		for element in element_list[1:]:
+			if element != lastest:
+				result.append([lastest, count])
+				lastest = element
+				count = 1
+			else:
+				count += 1
+		result.append([lastest, count])
+	return result
+
 
 element_list = ['a','b','c','d']
 duplicates = [1,1,1,1,1,1,2,2,2,1,1,3,3,4,4,4,4,4,4,4]
@@ -58,3 +113,5 @@ print element_in_reverse(element_list)
 print is_pallindrome_list(element_list)
 print flatten_list(list_tobe_flatten)
 print remove_duplicates(duplicates)
+print pack_duplicates(duplicates)
+print length_encoding(duplicates)
