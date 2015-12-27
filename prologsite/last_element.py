@@ -145,6 +145,19 @@ def duplicate_the_list(element_list, count):
 	[result.extend(list(repeat(element, count))) for element in element_list]
 	return result
 
+def drop_nth_element(element_list, n):
+	if n == 0 or n >= len(element_list):
+		return
+	else:
+		idx = (n - 1)
+		for i in range(0, len(element_list) / n):
+			element_list.pop(idx)
+			idx += (n -1)
+		return element_list
+
+def spilt_list(element_list, length):
+	return [element_list[:(length)], element_list[(length):]]
+
 element_list = ['a','b','c','d']
 # element_list = ['a', 'a', 'a', 'b', 'b', 'b', 'c', 'c', 'c', 'd', 'd', 'd']
 list_tobe_flatten = ['a',['b',['c','d'],'e'],'f']
@@ -164,3 +177,5 @@ print length_encoding(duplicates)
 print modified_length_encoding(duplicates)
 print decode_lenth_encoding(encoded_list)
 print duplicate_the_list(element_list, 3)
+print drop_nth_element(['a','b','c','d','e','f','g','h','i','k'], 3)
+print spilt_list(['a','b','c','d','e','f','g','h','i','k'], 3)
